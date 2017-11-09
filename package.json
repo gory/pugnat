@@ -1,0 +1,27 @@
+{
+  "name": "pugnat",
+  "version": "0.0.0",
+  "description": "pugnat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gory/pugnat.git"
+  },
+  "author": "@gory",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/gory/pugnat/issues"
+  },
+  "homepage": "https://github.com/gory/pugnat#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "browserify": "^14.5.0",
+    "gulp": "^3.9.1",
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0"
+  }
+}
