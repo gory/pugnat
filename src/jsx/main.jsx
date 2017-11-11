@@ -1,11 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+'use strict';
 
-let main = function() {
-	ReactDOM.render(
-		<h1>wow</h1>,
-		document.getElementById('root')
-	);
-}
+let Pugnat = require('Pugnat/Pugnat.jsx');
 
-main();
+const root = document.getElementById('root');
+
+let Main = (function() {
+	return {
+		initialize: function() {
+			this.pugnat = new Pugnat(root);
+		}
+	}
+
+}());
+
+module.exports = Main.initialize();

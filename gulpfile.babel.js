@@ -25,7 +25,7 @@ gulp.task('js', () => {
         .pipe(gulp.dest('./js'));
 });
 
-gulp.task('js-production', () => {
+gulp.task('js-prod', () => {
     process.env.NODE_ENV = 'production';
 
     return browserify(jsOptions)
