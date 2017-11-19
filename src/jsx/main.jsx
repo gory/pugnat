@@ -2,12 +2,12 @@
 
 let Pugnat = require('Pugnat/Pugnat.jsx');
 
-const root = document.getElementById('root');
+const reactRoot = document.getElementById('root');
 
 let Main = (function() {
 	return {
 		initialize: function() {
-			this.pugnat = new Pugnat(root);
+			this.pugnat = new Pugnat(reactRoot);
 		}
 	}
 

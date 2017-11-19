@@ -12,6 +12,7 @@ let Form = 				require('./Form.jsx');
 let EssayForm = 		require('./EssayForm.jsx');
 let FlavorForm =		require('./FlavorForm.jsx');
 let Calculator = 		require('./Calculator.jsx');
+let WelcomeDialog =     require('./WelcomeDialog.jsx');
 
 const numbers = [1, 2, 3, 4, 5];
 
@@ -19,7 +20,7 @@ const numbers = [1, 2, 3, 4, 5];
 function App() {
   return (
     <div>
-		<Welcome name="gory"/>
+		<Welcome name="Susan"/>
 		<Clock />
 		<Clock />
 		<Clock />
@@ -32,6 +33,7 @@ function App() {
 		<EssayForm />
 		<FlavorForm />
 		<Calculator />
+        <WelcomeDialog />
     </div>
   );
 }
