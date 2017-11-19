@@ -8,6 +8,11 @@ import source from 'vinyl-source-stream';
 import uglify from 'gulp-uglify';
 import buffer from 'vinyl-buffer';
 import uglifyify from 'uglifyify';
+import sass from 'gulp-sass';
+import postcss from 'gulp-postcss';
+import autoprefixer from 'autoprefixer';
+import plumber from 'gulp-plumber';
+import concat from 'gulp-concat';
 
 const jsOptions = {
     entries: './src/jsx/main.jsx',
@@ -15,6 +20,19 @@ const jsOptions = {
 };
 
 gulp.task('default', () => {
+});
+
+gulp.task('css', () => {
+	gulp.src(['src/scss/main.scss'])
+    .pipe(plumber({
+        errorHandler: function (error) {
+        console.log(error.message);
+        this.emit('end');
+    }}))
+	.pipe(sass())
+	.pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
+    .pipe(concat('main.built.css'))
+	.pipe(gulp.dest('./css/'))
 });
 
 gulp.task('js', () => {
@@ -40,4 +58,5 @@ gulp.task('js-prod', () => {
 
 gulp.task('watch', () => {
 	gulp.watch(['src/jsx/**/*'], ['js']);
+    gulp.watch('src/scss/**/*.scss', ['css']);
 });

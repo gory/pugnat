@@ -8,10 +8,6 @@ class SplitePane extends React.Component {
 
     }
 
-    handleChange(e) {
-        this.props.onTemperatureChange(e.target.value);
-    }
-
     render() {
         const temperature = this.props.temperature;
         const scale = this.props.scale;

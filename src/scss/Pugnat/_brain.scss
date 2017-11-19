@@ -1,0 +1,33 @@
+$box-size:  50px;
+$height:    4;
+$width:     4;
+
+.brain {
+    height: $box-size * $height;
+    width: $box-size * $width;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-end;
+    align-items: center;
+    justify-content: center;
+
+    .box {
+        height: $box-size;
+        width: $box-size;
+    }
+}
+
+.colorpicker {
+    height: $box-size;
+    width: $box-size * $width;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-end;
+    align-items: center;
+    justify-content: center;
+
+    .color {
+        height: $box-size;
+        width: $box-size;
+    }
+}
