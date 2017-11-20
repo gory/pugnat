@@ -9,10 +9,12 @@ class Brain extends React.Component {
     constructor(props) {
         super(props);
 
-        this.boxes = 16;
-        this.state = {colors: [], color: "#fff"};
+        this.boxes = 576;
+        this.state = {colors: [], color: "#fff", mouseDown: false};
         this.boundHandleColor = this.handleColor.bind(this);
-        // this.boundSetState = this.setState.bind(this);
+        this.boundHandleMouseDown = this.handleMouseDown.bind(this);
+        this.boundHandleMouseUp = this.handleMouseUp.bind(this);
+        this.boundHandleMouseOver = this.handleMouseOver.bind(this);
     }
 
     componentDidMount() {
@@ -36,18 +38,42 @@ class Brain extends React.Component {
 
         for (let x = 0; x < this.boxes; x++) {
             let myColor = colors[x];
-            myBoxes.push(<Box key={x.toString()} id={x.toString()} color={colors[x]}/>)
+            myBoxes.push(
+                <Box 
+                    key={x.toString()} 
+                    id={x.toString()} 
+                    color={colors[x]} 
+                    handleMouseOver={this.boundHandleMouseOver}
+                    handleMouseDown={this.boundHandleMouseDown} 
+                    handleMouseUp={this.boundHandleMouseUp}/>);
         }
 
         return myBoxes;
     }
 
-    onBoxClick(id) {
-        console.log('BOX ' + id + ' was clicked bitch');
+    handleMouseDown(id) {
+        let myColors = this.replaceColor(id);
+        this.setState({colors: myColors, mouseDown: true});
+    }
+
+    handleMouseUp() {
+        this.setState({mouseDown: false});
+    }
+
+    replaceColor(id) {
+        let myColors = this.state.colors.slice();
+        myColors[id] = this.state.color;
+        return myColors;
+    }
+
+    handleMouseOver(id) {
+        if(this.state.mouseDown) {
+            let myColors = this.replaceColor(id);
+            this.setState({colors: myColors});
+        }
     }
 
     handleColor(newColor) {
-        console.log('ok ::  ' + newColor)
         this.setState({color: newColor});
     }
 
@@ -56,7 +82,6 @@ class Brain extends React.Component {
         let boxes = this.makeBoxes(this.state.colors);
         return (
             <div>
-                <h2>{this.state.color}</h2>
                 <div className={classes}>
                     {boxes}
                 </div>

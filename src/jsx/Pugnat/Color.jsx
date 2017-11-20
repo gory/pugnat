@@ -10,14 +10,8 @@ class Color extends React.Component {
     }
 
     handleClick(e) {
-        console.log(e.target);
-        console.log(this.props);
-        console.log('props!!')
-
         this.props.onColorChange(this.props.color);
     }
-
-
 
     render() {
         let myClasses = 'color';

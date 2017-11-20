@@ -13,6 +13,7 @@ import postcss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
 import plumber from 'gulp-plumber';
 import concat from 'gulp-concat';
+import cleanCss from 'gulp-clean-css';
 
 const jsOptions = {
     entries: './src/jsx/main.jsx',
@@ -32,6 +33,7 @@ gulp.task('css', () => {
 	.pipe(sass())
 	.pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
     .pipe(concat('main.built.css'))
+    .pipe(cleanCss())
 	.pipe(gulp.dest('./css/'))
 });
 

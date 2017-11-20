@@ -6,12 +6,24 @@ class Box extends React.Component {
     constructor(props) {
         super(props);
 
-        this.boundHandleClick = this.handleClick.bind(this);
+        this.boundHandleOver = this.handleOver.bind(this);
+        this.boundHandleDown = this.handleDown.bind(this);
+        this.boundHandleUp = this.handleUp.bind(this);
     }
 
-    handleClick(e) {
+    handleOver(e) {
         e.preventDefault();
-        console.log('Box ' + this.props.id + ' was clicked.');
+        this.props.handleMouseOver(this.props.id);
+    }
+
+    handleDown(e) {
+        e.preventDefault();
+        this.props.handleMouseDown(this.props.id);
+    }
+
+    handleUp(e) {
+        e.preventDefault();
+        this.props.handleMouseUp(this.props.id);
     }
 
     render() {
@@ -22,7 +34,7 @@ class Box extends React.Component {
         }
 
         return (
-            <div className={myClasses} style={myStyles} onClick={this.boundHandleClick}>
+            <div className={myClasses} style={myStyles} onMouseOver={this.boundHandleOver} onMouseDown={this.boundHandleDown} onMouseUp={this.boundHandleUp}>
                 <a href="">
                     <div></div>
                 </a>
