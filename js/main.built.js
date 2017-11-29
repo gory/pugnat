@@ -18061,11 +18061,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Brain = require('./Brain.jsx');
 
 function App() {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(Brain, null)
-  );
+  return _react2.default.createElement(Brain, null);
 }
 
 module.exports = App;
@@ -18173,7 +18169,7 @@ var Brain = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Brain.__proto__ || Object.getPrototypeOf(Brain)).call(this, props));
 
-        _this.boxes = 24 * 24;
+        _this.boxes = 25 * 25;
         _this.state = { colors: [], color: "#fff", mouseDown: false };
         _this.boundHandleColor = _this.handleColor.bind(_this);
         _this.boundHandleMouseDown = _this.handleMouseDown.bind(_this);
@@ -18350,7 +18346,11 @@ var ColorPicker = function (_React$Component) {
     function ColorPicker(props) {
         _classCallCheck(this, ColorPicker);
 
-        return _possibleConstructorReturn(this, (ColorPicker.__proto__ || Object.getPrototypeOf(ColorPicker)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ColorPicker.__proto__ || Object.getPrototypeOf(ColorPicker)).call(this, props));
+
+        _this.colors = _this.makeColors();
+
+        return _this;
     }
 
     _createClass(ColorPicker, [{
@@ -18362,11 +18362,43 @@ var ColorPicker = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: myClasses, style: myStyles },
-                _react2.default.createElement(Color, { color: '#fff', onColorChange: this.props.onColorChange }),
-                _react2.default.createElement(Color, { color: '#000', onColorChange: this.props.onColorChange }),
-                _react2.default.createElement(Color, { color: '#ff0000', onColorChange: this.props.onColorChange }),
-                _react2.default.createElement(Color, { color: '#0000ff', onColorChange: this.props.onColorChange })
+                this.colors
             );
+        }
+    }, {
+        key: 'makeColors',
+        value: function makeColors() {
+            var values = ['00', '3f', '7f', 'bf', 'ff'];
+            var l = values.length;
+            var r = 0;
+            var g = 0;
+            var b = 0;
+
+            var myColors = [];
+
+            while (r < l) {
+                var red = values[r];
+                while (g < l) {
+                    var green = values[g];
+                    while (b < l) {
+                        var blue = values[b];
+
+                        var color = '#' + red + green + blue;
+
+                        myColors.push(_react2.default.createElement(Color, { color: color, key: b + g * 100 + r * 10000, onColorChange: this.props.onColorChange }));
+
+                        b = b + 1;
+                    }
+                    b = 0;
+                    g = g + 1;
+                }
+
+                b = 0;
+                g = 0;
+                r = r + 1;
+            }
+
+            return myColors;
         }
     }]);
 

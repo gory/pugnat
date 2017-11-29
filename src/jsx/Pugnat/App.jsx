@@ -6,10 +6,7 @@ let Brain =         require('./Brain.jsx');
 
 function App() {
   return (
-    <div>
         <Brain />
-
-    </div>
   );
 }
 

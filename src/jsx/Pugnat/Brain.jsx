@@ -9,7 +9,7 @@ class Brain extends React.Component {
     constructor(props) {
         super(props);
 
-        this.boxes = 24*24;
+        this.boxes = 25*25;
         this.state = {colors: [], color: "#fff", mouseDown: false};
         this.boundHandleColor = this.handleColor.bind(this);
         this.boundHandleMouseDown = this.handleMouseDown.bind(this);

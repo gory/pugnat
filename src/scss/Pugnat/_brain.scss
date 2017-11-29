@@ -1,6 +1,6 @@
 $box-size:  20px;
-$height:    24;
-$width:     24;
+$height:    25;
+$width:     25;
 
 .brain {
     height: $box-size * $height;
@@ -18,7 +18,7 @@ $width:     24;
 }
 
 .colorpicker {
-    height: $box-size;
+    height: $box-size * 5;
     width: $box-size * $width;
     display: flex;
     flex-flow: row wrap;
