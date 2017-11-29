@@ -3,13 +3,13 @@
 import React from 'react';
 
 let Box = require('./Box.jsx');
-let Color =   require('./Color.jsx');
+let ColorPicker = require('./ColorPicker.jsx');
 
 class Brain extends React.Component {
     constructor(props) {
         super(props);
 
-        this.boxes = 576;
+        this.boxes = 24*24;
         this.state = {colors: [], color: "#fff", mouseDown: false};
         this.boundHandleColor = this.handleColor.bind(this);
         this.boundHandleMouseDown = this.handleMouseDown.bind(this);
@@ -85,12 +85,7 @@ class Brain extends React.Component {
                 <div className={classes}>
                     {boxes}
                 </div>
-                <div className="colorpicker">
-                    <Color color="#000" onColorChange={this.boundHandleColor}/>
-                    <Color color="#fff" onColorChange={this.boundHandleColor}/>
-                    <Color color="#ff0000" onColorChange={this.boundHandleColor}/>
-                    <Color color="#0000ff" onColorChange={this.boundHandleColor}/>
-                </div>
+                <ColorPicker onColorChange={this.boundHandleColor}/>
             </div>
 
         );

@@ -10,6 +10,7 @@ class ColorPicker extends React.Component {
 
     }
 
+
     render() {
         let myClasses = 'colorpicker';
         let myStyles = {
@@ -17,10 +18,10 @@ class ColorPicker extends React.Component {
 
         return (
             <div className={myClasses} style={myStyles} >
-                <Color color="#fff" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
-                <Color color="#000" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
-                <Color color="#ff0000" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
-                <Color color="#0000ff" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
+                <Color color="#fff" onColorChange={this.props.onColorChange} />
+                <Color color="#000" onColorChange={this.props.onColorChange} />
+                <Color color="#ff0000" onColorChange={this.props.onColorChange} />
+                <Color color="#0000ff" onColorChange={this.props.onColorChange} />
             </div>
         );
     }
