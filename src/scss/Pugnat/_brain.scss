@@ -31,3 +31,14 @@ $width:     25;
         width: $box-size;
     }
 }
+
+.betterPicker {
+    .swatch {
+        height: 100px;
+        width: 100px;
+    }
+    .controls {
+        height: 100px;
+        width: 400px;
+    }
+}

@@ -4,6 +4,7 @@ import React from 'react';
 
 let Box = require('./Box.jsx');
 let ColorPicker = require('./ColorPicker.jsx');
+let BetterPicker = require('./BetterPicker.jsx');
 
 class Brain extends React.Component {
     constructor(props) {
@@ -86,6 +87,7 @@ class Brain extends React.Component {
                     {boxes}
                 </div>
                 <ColorPicker onColorChange={this.boundHandleColor}/>
+                <BetterPicker onColorChange={this.boundHandleColor}/>
             </div>
 
         );
