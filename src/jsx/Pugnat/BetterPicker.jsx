@@ -53,12 +53,11 @@ class ColorPicker extends React.Component {
 
         return (
             <div className={myClasses} style={myStyles} >
-                Better Picker
                 <div className='swatch' style={swatchStyles}></div>
                 <div className='controls'>
-                    <ColorControl value={this.state.r} update={this.boundSetR} />
-                    <ColorControl value={this.state.g} update={this.boundSetG} />
-                    <ColorControl value={this.state.b} update={this.boundSetB} />
+                    <ColorControl value={this.state.r} red={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetR} />
+                    <ColorControl value={this.state.g} green={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetG} />
+                    <ColorControl value={this.state.b} blue={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetB} />
                 </div>
             </div>
         );

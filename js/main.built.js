@@ -18144,14 +18144,13 @@ var ColorPicker = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: myClasses, style: myStyles },
-                'Better Picker',
                 _react2.default.createElement('div', { className: 'swatch', style: swatchStyles }),
                 _react2.default.createElement(
                     'div',
                     { className: 'controls' },
-                    _react2.default.createElement(ColorControl, { value: this.state.r, update: this.boundSetR }),
-                    _react2.default.createElement(ColorControl, { value: this.state.g, update: this.boundSetG }),
-                    _react2.default.createElement(ColorControl, { value: this.state.b, update: this.boundSetB })
+                    _react2.default.createElement(ColorControl, { value: this.state.r, red: true, r: this.state.r, g: this.state.g, b: this.state.b, update: this.boundSetR }),
+                    _react2.default.createElement(ColorControl, { value: this.state.g, green: true, r: this.state.r, g: this.state.g, b: this.state.b, update: this.boundSetG }),
+                    _react2.default.createElement(ColorControl, { value: this.state.b, blue: true, r: this.state.r, g: this.state.g, b: this.state.b, update: this.boundSetB })
                 )
             );
         }
@@ -18472,11 +18471,36 @@ var ColorControl = function (_React$Component) {
             var myClasses = 'control';
             var myStyles = {};
 
+            var left = 'rgb(0,0,0)';
+            var right = 'rgb(0,0,0)';
+
+            if (this.props.red) {
+                left = 'rgb(0, ' + this.props.g + ', ' + this.props.b + ')';
+                right = 'rgb(255, ' + this.props.g + ', ' + this.props.b + ')';
+            }
+
+            if (this.props.green) {
+                left = 'rgb(' + this.props.r + ', 0, ' + this.props.g + ')';
+                right = 'rgb(' + this.props.r + ', 255, ' + this.props.g + ')';
+            }
+
+            if (this.props.blue) {
+                left = 'rgb(' + this.props.r + ', ' + this.props.g + ', 0)';
+                right = 'rgb(' + this.props.r + ', ' + this.props.g + ', 255)';
+            }
+
+            var leftStyles = { backgroundColor: left };
+            var rightStyles = { backgroundColor: right };
+
+            console.log(leftStyles);
+
             return _react2.default.createElement(
                 'div',
                 { className: myClasses, style: myStyles },
                 _react2.default.createElement('textarea', { disabled: true, value: this.state.value, onChange: this.boundHandleChange, onInput: this.boundHandleChange }),
-                _react2.default.createElement('input', { type: 'range', min: '-10', max: '265', value: this.state.value, onChange: this.boundHandleChange })
+                _react2.default.createElement('div', { className: 'control-swatch', style: leftStyles }),
+                _react2.default.createElement('input', { type: 'range', min: '-10', max: '265', value: this.state.value, onChange: this.boundHandleChange }),
+                _react2.default.createElement('div', { className: 'control-swatch', style: rightStyles })
             );
         }
     }]);
