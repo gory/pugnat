@@ -18083,6 +18083,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var ColorControl = require('./ColorControl.jsx');
+
 var ColorPicker = function (_React$Component) {
     _inherits(ColorPicker, _React$Component);
 
@@ -18106,18 +18108,26 @@ var ColorPicker = function (_React$Component) {
 
     _createClass(ColorPicker, [{
         key: 'setR',
-        value: function setR(e) {
-            console.log(e);
+        value: function setR(value) {
+            this.setState({ r: value });
+            this.props.onColorChange(this._getColor());
         }
     }, {
         key: 'setG',
-        value: function setG(e) {
-            console.log(e);
+        value: function setG(value) {
+            this.setState({ g: value });
+            this.props.onColorChange(this._getColor());
         }
     }, {
         key: 'setB',
-        value: function setB(e) {
-            console.log(e);
+        value: function setB(value) {
+            this.setState({ b: value });
+            this.props.onColorChange(this._getColor());
+        }
+    }, {
+        key: '_getColor',
+        value: function _getColor() {
+            return 'rgb(' + this.state.r + ',' + this.state.g + ',' + this.state.b + ')';
         }
     }, {
         key: 'render',
@@ -18125,7 +18135,7 @@ var ColorPicker = function (_React$Component) {
             var myClasses = 'betterPicker';
             var myStyles = {};
 
-            var myColor = 'rgb(' + this.state.r + ',' + this.state.g + ',' + this.state.b + ')';
+            var myColor = this._getColor();
 
             var swatchStyles = {
                 backgroundColor: myColor
@@ -18139,9 +18149,9 @@ var ColorPicker = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'controls' },
-                    _react2.default.createElement('input', { type: 'range', onChange: this.setR }),
-                    _react2.default.createElement('input', { type: 'range', onChange: this.setG }),
-                    _react2.default.createElement('input', { type: 'range', onChange: this.setB })
+                    _react2.default.createElement(ColorControl, { value: this.state.r, update: this.boundSetR }),
+                    _react2.default.createElement(ColorControl, { value: this.state.g, update: this.boundSetG }),
+                    _react2.default.createElement(ColorControl, { value: this.state.b, update: this.boundSetB })
                 )
             );
         }
@@ -18152,7 +18162,7 @@ var ColorPicker = function (_React$Component) {
 
 module.exports = ColorPicker;
 
-},{"react":26}],30:[function(require,module,exports){
+},{"./ColorControl.jsx":33,"react":26}],30:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -18257,7 +18267,7 @@ var Brain = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Brain.__proto__ || Object.getPrototypeOf(Brain)).call(this, props));
 
         _this.boxes = 25 * 25;
-        _this.state = { colors: [], color: "#fff", mouseDown: false };
+        _this.state = { colors: [], r: 0, g: 0, b: 0, mouseDown: false };
         _this.boundHandleColor = _this.handleColor.bind(_this);
         _this.boundHandleMouseDown = _this.handleMouseDown.bind(_this);
         _this.boundHandleMouseUp = _this.handleMouseUp.bind(_this);
@@ -18345,8 +18355,7 @@ var Brain = function (_React$Component) {
                     { className: classes },
                     boxes
                 ),
-                _react2.default.createElement(ColorPicker, { onColorChange: this.boundHandleColor }),
-                _react2.default.createElement(BetterPicker, { onColorChange: this.boundHandleColor })
+                _react2.default.createElement(BetterPicker, { r: this.state.r, g: this.state.g, b: this.state.b, onColorChange: this.boundHandleColor })
             );
         }
     }]);
@@ -18356,7 +18365,7 @@ var Brain = function (_React$Component) {
 
 module.exports = Brain;
 
-},{"./BetterPicker.jsx":29,"./Box.jsx":30,"./ColorPicker.jsx":33,"react":26}],32:[function(require,module,exports){
+},{"./BetterPicker.jsx":29,"./Box.jsx":30,"./ColorPicker.jsx":34,"react":26}],32:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -18410,6 +18419,74 @@ var Color = function (_React$Component) {
 module.exports = Color;
 
 },{"react":26}],33:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ColorControl = function (_React$Component) {
+    _inherits(ColorControl, _React$Component);
+
+    function ColorControl(props) {
+        _classCallCheck(this, ColorControl);
+
+        var _this = _possibleConstructorReturn(this, (ColorControl.__proto__ || Object.getPrototypeOf(ColorControl)).call(this, props));
+
+        _this.state = {
+            value: props.value
+        };
+
+        _this.boundHandleChange = _this.handleChange.bind(_this);
+
+        return _this;
+    }
+
+    _createClass(ColorControl, [{
+        key: 'handleChange',
+        value: function handleChange(e) {
+            var myValue = e.target.value;
+            if (myValue < 0) {
+                myValue = 0;
+            }
+            if (myValue > 255) {
+                myValue = 255;
+            }
+            this.setState({ value: myValue });
+
+            this.props.update(myValue);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var myClasses = 'control';
+            var myStyles = {};
+
+            return _react2.default.createElement(
+                'div',
+                { className: myClasses, style: myStyles },
+                _react2.default.createElement('textarea', { disabled: true, value: this.state.value, onChange: this.boundHandleChange, onInput: this.boundHandleChange }),
+                _react2.default.createElement('input', { type: 'range', min: '-10', max: '265', value: this.state.value, onChange: this.boundHandleChange })
+            );
+        }
+    }]);
+
+    return ColorControl;
+}(_react2.default.Component);
+
+module.exports = ColorControl;
+
+},{"react":26}],34:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -18495,7 +18572,7 @@ var ColorPicker = function (_React$Component) {
 
 module.exports = ColorPicker;
 
-},{"./Color.jsx":32,"react":26}],34:[function(require,module,exports){
+},{"./Color.jsx":32,"react":26}],35:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -18524,7 +18601,7 @@ var Pugnat = function Pugnat(element) {
 
 module.exports = Pugnat;
 
-},{"./App.jsx":28,"react":26,"react-dom":22}],35:[function(require,module,exports){
+},{"./App.jsx":28,"react":26,"react-dom":22}],36:[function(require,module,exports){
 'use strict';
 
 var Pugnat = require('Pugnat/Pugnat.jsx');
@@ -18541,4 +18618,4 @@ var Main = function () {
 
 module.exports = Main.initialize();
 
-},{"Pugnat/Pugnat.jsx":34}]},{},[35]);
+},{"Pugnat/Pugnat.jsx":35}]},{},[36]);

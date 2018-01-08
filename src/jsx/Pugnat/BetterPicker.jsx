@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+let ColorControl = require('./ColorControl.jsx');
+
 class ColorPicker extends React.Component {
     constructor(props) {
         super(props);
@@ -19,16 +21,23 @@ class ColorPicker extends React.Component {
     }
 
 
-    setR(e) {
-        console.log(e);
+    setR(value) {
+        this.setState({r: value});
+        this.props.onColorChange(this._getColor());
     }
 
-    setG(e) {
-        console.log(e);
+    setG(value) {
+        this.setState({g: value});
+        this.props.onColorChange(this._getColor());
     }
 
-    setB(e) {
-        console.log(e);
+    setB(value) {
+        this.setState({b: value});
+        this.props.onColorChange(this._getColor());
+    }
+
+    _getColor() {
+        return 'rgb(' + this.state.r + ',' + this.state.g + ',' + this.state.b + ')';
     }
 
     render() {
@@ -36,7 +45,7 @@ class ColorPicker extends React.Component {
         let myStyles = {
         }
 
-        let myColor = 'rgb(' + this.state.r + ',' + this.state.g + ',' + this.state.b + ')';
+        let myColor = this._getColor();
 
         let swatchStyles = {
             backgroundColor: myColor
@@ -47,9 +56,9 @@ class ColorPicker extends React.Component {
                 Better Picker
                 <div className='swatch' style={swatchStyles}></div>
                 <div className='controls'>
-                    <input type='range' onChange={this.setR} />
-                    <input type='range' onChange={this.setG} />
-                    <input type='range' onChange={this.setB} />
+                    <ColorControl value={this.state.r} update={this.boundSetR} />
+                    <ColorControl value={this.state.g} update={this.boundSetG} />
+                    <ColorControl value={this.state.b} update={this.boundSetB} />
                 </div>
             </div>
         );

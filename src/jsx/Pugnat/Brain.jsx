@@ -11,7 +11,7 @@ class Brain extends React.Component {
         super(props);
 
         this.boxes = 25*25;
-        this.state = {colors: [], color: "#fff", mouseDown: false};
+        this.state = {colors: [], r:0, g:0, b:0, mouseDown: false};
         this.boundHandleColor = this.handleColor.bind(this);
         this.boundHandleMouseDown = this.handleMouseDown.bind(this);
         this.boundHandleMouseUp = this.handleMouseUp.bind(this);
@@ -40,12 +40,12 @@ class Brain extends React.Component {
         for (let x = 0; x < this.boxes; x++) {
             let myColor = colors[x];
             myBoxes.push(
-                <Box 
-                    key={x.toString()} 
-                    id={x.toString()} 
-                    color={colors[x]} 
+                <Box
+                    key={x.toString()}
+                    id={x.toString()}
+                    color={colors[x]}
                     handleMouseOver={this.boundHandleMouseOver}
-                    handleMouseDown={this.boundHandleMouseDown} 
+                    handleMouseDown={this.boundHandleMouseDown}
                     handleMouseUp={this.boundHandleMouseUp}/>);
         }
 
@@ -86,8 +86,7 @@ class Brain extends React.Component {
                 <div className={classes}>
                     {boxes}
                 </div>
-                <ColorPicker onColorChange={this.boundHandleColor}/>
-                <BetterPicker onColorChange={this.boundHandleColor}/>
+                <BetterPicker r={this.state.r} g={this.state.g} b={this.state.b} onColorChange={this.boundHandleColor}/>
             </div>
 
         );
