@@ -31,6 +31,9 @@ class ColorControl extends React.Component {
         let myClasses = 'control';
         let myStyles = {
         }
+        let textStyles = {
+            resize: 'none'
+        }
 
         let left = 'rgb(0,0,0)';
         let right = 'rgb(0,0,0)';
@@ -51,19 +54,16 @@ class ColorControl extends React.Component {
             right = 'rgb('+ this.props.r + ', '+ this.props.g + ', 255)';
         }
 
-        let leftStyles = {backgroundColor: left};
-        let rightStyles = {backgroundColor: right};
-
-        console.log(leftStyles);
-
-
+        let gradient = 'linear-gradient(90deg, '+ left +', '+ right +')';
+        let gradientStyles = {background: gradient}
 
         return (
             <div className={myClasses} style={myStyles} >
-                <textarea disabled={true} value={this.state.value} onChange={this.boundHandleChange} onInput={this.boundHandleChange} />
-                <div className='control-swatch' style={leftStyles}></div>
-                <input type='range' min='-10' max='265' value={this.state.value} onChange={this.boundHandleChange} />
-                <div className='control-swatch' style={rightStyles}></div>
+                <div className='control-slides'>
+                    <input className='better-slider' type='range' min='-10' max='265' value={this.state.value} onChange={this.boundHandleChange} />
+                    <div className='better-gradient' style={gradientStyles} />
+                </div>
+                <textarea style={textStyles} cols={3} rows={1} disabled={true} value={this.state.value} onChange={this.boundHandleChange} onInput={this.boundHandleChange} />
             </div>
         );
     }

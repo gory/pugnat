@@ -18132,7 +18132,7 @@ var ColorPicker = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var myClasses = 'betterPicker';
+            var myClasses = 'better-picker';
             var myStyles = {};
 
             var myColor = this._getColor();
@@ -18266,7 +18266,7 @@ var Brain = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Brain.__proto__ || Object.getPrototypeOf(Brain)).call(this, props));
 
         _this.boxes = 25 * 25;
-        _this.state = { colors: [], r: 0, g: 0, b: 0, mouseDown: false };
+        _this.state = { colors: [], r: 0, g: 0, b: 0, color: 'rgb(0,0,0)', mouseDown: false };
         _this.boundHandleColor = _this.handleColor.bind(_this);
         _this.boundHandleMouseDown = _this.handleMouseDown.bind(_this);
         _this.boundHandleMouseUp = _this.handleMouseUp.bind(_this);
@@ -18346,14 +18346,17 @@ var Brain = function (_React$Component) {
         value: function render() {
             var classes = 'brain';
             var boxes = this.makeBoxes(this.state.colors);
+            var myStyle = { width: '100%', maxWidth: '414px' };
+            var swatchStyle = { backgroundColor: this.state.color };
             return _react2.default.createElement(
                 'div',
-                null,
+                { style: myStyle },
                 _react2.default.createElement(
                     'div',
                     { className: classes },
                     boxes
                 ),
+                _react2.default.createElement('div', { className: 'swatch', style: swatchStyle }),
                 _react2.default.createElement(BetterPicker, { r: this.state.r, g: this.state.g, b: this.state.b, onColorChange: this.boundHandleColor })
             );
         }
@@ -18470,6 +18473,9 @@ var ColorControl = function (_React$Component) {
         value: function render() {
             var myClasses = 'control';
             var myStyles = {};
+            var textStyles = {
+                resize: 'none'
+            };
 
             var left = 'rgb(0,0,0)';
             var right = 'rgb(0,0,0)';
@@ -18489,18 +18495,19 @@ var ColorControl = function (_React$Component) {
                 right = 'rgb(' + this.props.r + ', ' + this.props.g + ', 255)';
             }
 
-            var leftStyles = { backgroundColor: left };
-            var rightStyles = { backgroundColor: right };
-
-            console.log(leftStyles);
+            var gradient = 'linear-gradient(90deg, ' + left + ', ' + right + ')';
+            var gradientStyles = { background: gradient };
 
             return _react2.default.createElement(
                 'div',
                 { className: myClasses, style: myStyles },
-                _react2.default.createElement('textarea', { disabled: true, value: this.state.value, onChange: this.boundHandleChange, onInput: this.boundHandleChange }),
-                _react2.default.createElement('div', { className: 'control-swatch', style: leftStyles }),
-                _react2.default.createElement('input', { type: 'range', min: '-10', max: '265', value: this.state.value, onChange: this.boundHandleChange }),
-                _react2.default.createElement('div', { className: 'control-swatch', style: rightStyles })
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control-slides' },
+                    _react2.default.createElement('input', { className: 'better-slider', type: 'range', min: '-10', max: '265', value: this.state.value, onChange: this.boundHandleChange }),
+                    _react2.default.createElement('div', { className: 'better-gradient', style: gradientStyles })
+                ),
+                _react2.default.createElement('textarea', { style: textStyles, cols: 3, rows: 1, disabled: true, value: this.state.value, onChange: this.boundHandleChange, onInput: this.boundHandleChange })
             );
         }
     }]);

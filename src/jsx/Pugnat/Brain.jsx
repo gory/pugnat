@@ -11,7 +11,7 @@ class Brain extends React.Component {
         super(props);
 
         this.boxes = 25*25;
-        this.state = {colors: [], r:0, g:0, b:0, mouseDown: false};
+        this.state = {colors: [], r:0, g:0, b:0, color:'rgb(0,0,0)', mouseDown: false};
         this.boundHandleColor = this.handleColor.bind(this);
         this.boundHandleMouseDown = this.handleMouseDown.bind(this);
         this.boundHandleMouseUp = this.handleMouseUp.bind(this);
@@ -81,11 +81,14 @@ class Brain extends React.Component {
     render() {
         let classes = 'brain';
         let boxes = this.makeBoxes(this.state.colors);
+        let myStyle = {width: '100%', maxWidth: '414px'};
+        let swatchStyle = {backgroundColor: this.state.color};
         return (
-            <div>
+            <div style={myStyle}>
                 <div className={classes}>
                     {boxes}
                 </div>
+                <div className='swatch' style={swatchStyle} />
                 <BetterPicker r={this.state.r} g={this.state.g} b={this.state.b} onColorChange={this.boundHandleColor}/>
             </div>
 

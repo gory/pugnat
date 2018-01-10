@@ -1,0 +1,29 @@
+.better-picker {
+	.swatch {
+	    height: 100px;
+	    width: 100px;
+	}
+	.controls {
+	    height: 100px;
+	    width: 100%;
+	}
+
+	.control-slides {
+		height: 10px;
+		position: relative;
+	}
+
+	.better-slider {
+		position: absolute;
+		z-index: 100;
+		width: 320px;
+	}
+
+	.better-gradient {
+		height: 10px;
+		width: 100%;
+		position: absolute;
+	}
+
+	@import "helpers/inputrange"
+}

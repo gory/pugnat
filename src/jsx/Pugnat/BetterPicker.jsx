@@ -41,7 +41,7 @@ class ColorPicker extends React.Component {
     }
 
     render() {
-        let myClasses = 'betterPicker';
+        let myClasses = 'better-picker';
         let myStyles = {
         }
 
