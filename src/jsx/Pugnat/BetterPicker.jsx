@@ -47,13 +47,8 @@ class ColorPicker extends React.Component {
 
         let myColor = this._getColor();
 
-        let swatchStyles = {
-            backgroundColor: myColor
-        }
-
         return (
             <div className={myClasses} style={myStyles} >
-                <div className='swatch' style={swatchStyles}></div>
                 <div className='controls'>
                     <ColorControl value={this.state.r} red={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetR} />
                     <ColorControl value={this.state.g} green={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetG} />

@@ -18137,14 +18137,9 @@ var ColorPicker = function (_React$Component) {
 
             var myColor = this._getColor();
 
-            var swatchStyles = {
-                backgroundColor: myColor
-            };
-
             return _react2.default.createElement(
                 'div',
                 { className: myClasses, style: myStyles },
-                _react2.default.createElement('div', { className: 'swatch', style: swatchStyles }),
                 _react2.default.createElement(
                     'div',
                     { className: 'controls' },
@@ -18161,7 +18156,7 @@ var ColorPicker = function (_React$Component) {
 
 module.exports = ColorPicker;
 
-},{"./ColorControl.jsx":33,"react":26}],30:[function(require,module,exports){
+},{"./ColorControl.jsx":32,"react":26}],30:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -18189,6 +18184,7 @@ var Box = function (_React$Component) {
         _this.boundHandleOver = _this.handleOver.bind(_this);
         _this.boundHandleDown = _this.handleDown.bind(_this);
         _this.boundHandleUp = _this.handleUp.bind(_this);
+        _this.boundHandleTouchMove = _this.handleTouchMove.bind(_this);
         return _this;
     }
 
@@ -18211,6 +18207,12 @@ var Box = function (_React$Component) {
             this.props.handleMouseUp(this.props.id);
         }
     }, {
+        key: 'handleTouchMove',
+        value: function handleTouchMove(e) {
+            console.log('box ' + this.props.id);
+            this.props.handleTouchMove(this.props.id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var myClasses = 'box';
@@ -18221,7 +18223,14 @@ var Box = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: myClasses, style: myStyles, onMouseOver: this.boundHandleOver, onMouseDown: this.boundHandleDown, onMouseUp: this.boundHandleUp },
+                {
+                    className: myClasses,
+                    style: myStyles,
+                    onMouseOver: this.boundHandleOver,
+                    onMouseDown: this.boundHandleDown,
+                    onMouseUp: this.boundHandleUp,
+                    onTouchStart: this.boundHandleTouchMove
+                },
                 _react2.default.createElement(
                     'a',
                     { href: '' },
@@ -18254,7 +18263,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Box = require('./Box.jsx');
-var ColorPicker = require('./ColorPicker.jsx');
 var BetterPicker = require('./BetterPicker.jsx');
 
 var Brain = function (_React$Component) {
@@ -18271,6 +18279,7 @@ var Brain = function (_React$Component) {
         _this.boundHandleMouseDown = _this.handleMouseDown.bind(_this);
         _this.boundHandleMouseUp = _this.handleMouseUp.bind(_this);
         _this.boundHandleMouseOver = _this.handleMouseOver.bind(_this);
+        _this.boundHandleTouchMove = _this.handleTouchMove.bind(_this);
         return _this;
     }
 
@@ -18305,7 +18314,8 @@ var Brain = function (_React$Component) {
                     color: colors[x],
                     handleMouseOver: this.boundHandleMouseOver,
                     handleMouseDown: this.boundHandleMouseDown,
-                    handleMouseUp: this.boundHandleMouseUp }));
+                    handleMouseUp: this.boundHandleMouseUp,
+                    handleTouchMove: this.boundHandleTouchMove }));
             }
 
             return myBoxes;
@@ -18322,11 +18332,10 @@ var Brain = function (_React$Component) {
             this.setState({ mouseDown: false });
         }
     }, {
-        key: 'replaceColor',
-        value: function replaceColor(id) {
-            var myColors = this.state.colors.slice();
-            myColors[id] = this.state.color;
-            return myColors;
+        key: 'handleTouchMove',
+        value: function handleTouchMove(id) {
+            var myColors = this.replaceColor(id);
+            this.setState({ colors: myColors });
         }
     }, {
         key: 'handleMouseOver',
@@ -18335,6 +18344,13 @@ var Brain = function (_React$Component) {
                 var myColors = this.replaceColor(id);
                 this.setState({ colors: myColors });
             }
+        }
+    }, {
+        key: 'replaceColor',
+        value: function replaceColor(id) {
+            var myColors = this.state.colors.slice();
+            myColors[id] = this.state.color;
+            return myColors;
         }
     }, {
         key: 'handleColor',
@@ -18367,60 +18383,7 @@ var Brain = function (_React$Component) {
 
 module.exports = Brain;
 
-},{"./BetterPicker.jsx":29,"./Box.jsx":30,"./ColorPicker.jsx":34,"react":26}],32:[function(require,module,exports){
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Color = function (_React$Component) {
-    _inherits(Color, _React$Component);
-
-    function Color(props) {
-        _classCallCheck(this, Color);
-
-        var _this = _possibleConstructorReturn(this, (Color.__proto__ || Object.getPrototypeOf(Color)).call(this, props));
-
-        _this.boundHandleClick = _this.handleClick.bind(_this);
-        return _this;
-    }
-
-    _createClass(Color, [{
-        key: 'handleClick',
-        value: function handleClick(e) {
-            this.props.onColorChange(this.props.color);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var myClasses = 'color';
-            var color = this.props.color;
-            var myStyles = {
-                backgroundColor: color
-            };
-
-            return _react2.default.createElement('div', { className: myClasses, style: myStyles, value: color,
-                onClick: this.boundHandleClick });
-        }
-    }]);
-
-    return Color;
-}(_react2.default.Component);
-
-module.exports = Color;
-
-},{"react":26}],33:[function(require,module,exports){
+},{"./BetterPicker.jsx":29,"./Box.jsx":30,"react":26}],32:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -18517,93 +18480,7 @@ var ColorControl = function (_React$Component) {
 
 module.exports = ColorControl;
 
-},{"react":26}],34:[function(require,module,exports){
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Color = require('./Color.jsx');
-
-var ColorPicker = function (_React$Component) {
-    _inherits(ColorPicker, _React$Component);
-
-    function ColorPicker(props) {
-        _classCallCheck(this, ColorPicker);
-
-        var _this = _possibleConstructorReturn(this, (ColorPicker.__proto__ || Object.getPrototypeOf(ColorPicker)).call(this, props));
-
-        _this.colors = _this.makeColors();
-
-        return _this;
-    }
-
-    _createClass(ColorPicker, [{
-        key: 'render',
-        value: function render() {
-            var myClasses = 'colorpicker';
-            var myStyles = {};
-
-            return _react2.default.createElement(
-                'div',
-                { className: myClasses, style: myStyles },
-                this.colors
-            );
-        }
-    }, {
-        key: 'makeColors',
-        value: function makeColors() {
-            var values = ['00', '3f', '7f', 'bf', 'ff'];
-            var l = values.length;
-            var r = 0;
-            var g = 0;
-            var b = 0;
-
-            var myColors = [];
-
-            while (r < l) {
-                var red = values[r];
-                while (g < l) {
-                    var green = values[g];
-                    while (b < l) {
-                        var blue = values[b];
-
-                        var color = '#' + red + green + blue;
-
-                        myColors.push(_react2.default.createElement(Color, { color: color, key: b + g * 100 + r * 10000, onColorChange: this.props.onColorChange }));
-
-                        b = b + 1;
-                    }
-                    b = 0;
-                    g = g + 1;
-                }
-
-                b = 0;
-                g = 0;
-                r = r + 1;
-            }
-
-            return myColors;
-        }
-    }]);
-
-    return ColorPicker;
-}(_react2.default.Component);
-
-module.exports = ColorPicker;
-
-},{"./Color.jsx":32,"react":26}],35:[function(require,module,exports){
+},{"react":26}],33:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -18632,7 +18509,7 @@ var Pugnat = function Pugnat(element) {
 
 module.exports = Pugnat;
 
-},{"./App.jsx":28,"react":26,"react-dom":22}],36:[function(require,module,exports){
+},{"./App.jsx":28,"react":26,"react-dom":22}],34:[function(require,module,exports){
 'use strict';
 
 var Pugnat = require('Pugnat/Pugnat.jsx');
@@ -18649,4 +18526,4 @@ var Main = function () {
 
 module.exports = Main.initialize();
 
-},{"Pugnat/Pugnat.jsx":35}]},{},[36]);
+},{"Pugnat/Pugnat.jsx":33}]},{},[34]);

@@ -3,7 +3,6 @@
 import React from 'react';
 
 let Box = require('./Box.jsx');
-let ColorPicker = require('./ColorPicker.jsx');
 let BetterPicker = require('./BetterPicker.jsx');
 
 class Brain extends React.Component {
@@ -16,6 +15,7 @@ class Brain extends React.Component {
         this.boundHandleMouseDown = this.handleMouseDown.bind(this);
         this.boundHandleMouseUp = this.handleMouseUp.bind(this);
         this.boundHandleMouseOver = this.handleMouseOver.bind(this);
+        this.boundHandleTouchMove = this.handleTouchMove.bind(this);
     }
 
     componentDidMount() {
@@ -46,7 +46,8 @@ class Brain extends React.Component {
                     color={colors[x]}
                     handleMouseOver={this.boundHandleMouseOver}
                     handleMouseDown={this.boundHandleMouseDown}
-                    handleMouseUp={this.boundHandleMouseUp}/>);
+                    handleMouseUp={this.boundHandleMouseUp}
+                    handleTouchMove={this.boundHandleTouchMove}/>);
         }
 
         return myBoxes;
@@ -61,10 +62,9 @@ class Brain extends React.Component {
         this.setState({mouseDown: false});
     }
 
-    replaceColor(id) {
-        let myColors = this.state.colors.slice();
-        myColors[id] = this.state.color;
-        return myColors;
+    handleTouchMove(id) {
+        let myColors = this.replaceColor(id);
+        this.setState({colors: myColors});
     }
 
     handleMouseOver(id) {
@@ -72,6 +72,12 @@ class Brain extends React.Component {
             let myColors = this.replaceColor(id);
             this.setState({colors: myColors});
         }
+    }
+
+    replaceColor(id) {
+        let myColors = this.state.colors.slice();
+        myColors[id] = this.state.color;
+        return myColors;
     }
 
     handleColor(newColor) {

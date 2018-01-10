@@ -16,22 +16,14 @@ $width:     25;
         width: $box-size;
         padding-bottom: $box-size;
     }
+
 }
 
-/*.colorpicker {
-    height: $box-size * 5;
-    width: $box-size * $width;
-    display: flex;
-    flex-flow: row wrap;
-    align-content: flex-end;
-    align-items: center;
-    justify-content: center;
-
-    .color {
-        height: $box-size;
-        width: $box-size;
-    }
-}*/
+.swatch {
+    width: 100%;
+    padding-bottom: $box-size;
+    margin: 4px 0;
+}
 
 
 @import "betterPicker";
