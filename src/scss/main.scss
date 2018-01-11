@@ -11,6 +11,10 @@ html {
 	overflow: hidden;
 }
 
+body {
+	position: fixed;
+}
+
 .root {
 	display: flex;
 	align-items: center;

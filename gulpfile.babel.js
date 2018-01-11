@@ -14,6 +14,7 @@ import autoprefixer from 'autoprefixer';
 import plumber from 'gulp-plumber';
 import concat from 'gulp-concat';
 import cleanCss from 'gulp-clean-css';
+import webserver from 'gulp-webserver';
 
 const jsOptions = {
     entries: './src/jsx/main.jsx',
@@ -21,6 +22,15 @@ const jsOptions = {
 };
 
 gulp.task('default', () => {
+});
+
+gulp.task('webserver', function() {
+  gulp.src('.')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      open: true
+    }));
 });
 
 gulp.task('css', () => {
