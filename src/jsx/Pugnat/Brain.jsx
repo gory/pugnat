@@ -17,6 +17,7 @@ class Brain extends React.Component {
         this.boundHandleMouseUp = this.handleMouseUp.bind(this);
         this.boundHandleMouseOver = this.handleMouseOver.bind(this);
         this.boundHandleTouchMove = this.handleTouchMove.bind(this);
+        this.boundHandleTouchStart = this.handleTouchStart.bind(this);
 
         this.height = 0;
         this.width = 0;
@@ -34,11 +35,13 @@ class Brain extends React.Component {
         this.queryDom();
 
         this.element.addEventListener('touchmove', this.boundHandleTouchMove, false);
+        this.element.addEventListener('touchstart', this.boundHandleTouchStart, false);
 
     }
 
     componentWillUnmount() {
-       this.element.removeEventListener('touchmove', this.boundHandleTouchMove, false); 
+       this.element.removeEventListener('touchmove', this.boundHandleTouchMove, false);
+       this.element.removeEventListener('touchstart', this.boundHandleTouchStart, false);
     }
 
     initColors() {
@@ -96,6 +99,18 @@ class Brain extends React.Component {
     }
 
     handleTouchMove(e) {
+        let touches = e.touches;
+        let lt = touches.length;
+        for (let i = 0; i < lt; i++) {
+            let touch = touches[i];
+            let x = touch.clientX;
+            let y = touch.clientY;
+            let myColors = this.replaceColor(this.touchToId(x, y));
+            this.setState({colors: myColors});
+        }
+    }
+
+    handleTouchStart(e) {
         let touches = e.touches;
         let lt = touches.length;
         for (let i = 0; i < lt; i++) {
