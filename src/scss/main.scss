@@ -7,6 +7,9 @@ html, body, main, .root {
 	background-color: #666;
 }
 
+html {
+	overflow: hidden;
+}
 
 .root {
 	display: flex;
