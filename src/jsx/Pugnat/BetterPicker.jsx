@@ -9,9 +9,9 @@ class ColorPicker extends React.Component {
         super(props);
 
         this.state = {
-            r: 0,
-            g: 0,
-            b: 0
+            r: this.props.r,
+            g: this.props.g,
+            b: this.props.b
         }
 
         this.boundSetR = this.setR.bind(this);

@@ -11,13 +11,12 @@ class Brain extends React.Component {
 
         this.dimension = 25;
         this.boxes = this.dimension * this.dimension;
-        this.state = {colors: [], r:0, g:0, b:0, color:'rgb(0,0,0)', mouseDown: false};
+        this.state = {colors: [], r:255, g:255, b:255, color:'rgb(255,255,255)', mouseDown: false};
         this.boundHandleColor = this.handleColor.bind(this);
         this.boundHandleMouseDown = this.handleMouseDown.bind(this);
         this.boundHandleMouseUp = this.handleMouseUp.bind(this);
         this.boundHandleMouseOver = this.handleMouseOver.bind(this);
         this.boundHandleTouchMove = this.handleTouchMove.bind(this);
-        // this.matrix = [];
 
         this.height = 0;
         this.width = 0;
@@ -33,7 +32,6 @@ class Brain extends React.Component {
 
         this.queryDom();
 
-        // this.setupMatrix();
     }
 
     initColors() {
@@ -63,16 +61,6 @@ class Brain extends React.Component {
 
         return myBoxes;
     }
-
-    // setupMatrix() {
-    //     let myMatrix = [];
-    //     let row = 0;
-    //     let col = 0;
-
-    //     for (let x = 0; x < this.boxes; x++) {
-
-    //     }
-    // }
 
     queryDom() {
         let myElement = document.querySelector('[data-pugnat]');
@@ -106,11 +94,11 @@ class Brain extends React.Component {
             let touch = touches[i];
             let x = touch.clientX;
             let y = touch.clientY;
-            this.touchToId(x, y);
+            let myColors = this.replaceColor(this.touchToId(x, y));
+            this.setState({colors: myColors});
         }
     }
 
-    //(x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
     map(value) {
         let mappedValue = value * (this.dimension - 1) / this.height;
         let ceiling = Math.ceil(mappedValue);
@@ -137,6 +125,12 @@ class Brain extends React.Component {
         let col = this.map(x);
 
         console.log('row :: ' + row + '    col :: ' + col);
+
+        let id = ((row - 1) * 25) + col;
+
+        console.log(id);
+
+        return id;
 
     }
 
