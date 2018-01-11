@@ -118,22 +118,17 @@ class Brain extends React.Component {
     }
 
     touchToId(x, oldY) {
-        console.log('x :: ' + x + '    y :: ' + oldY);
         let y = oldY - this.offsetTop;
 
         let row = this.map(y);
         let col = this.map(x);
 
-        console.log('row :: ' + row + '    col :: ' + col);
-
-        let id = ((row - 1) * 25) + col;
-
-        console.log(id);
+        let id = ((row - 1) * 25) + (col-1);
 
         return id;
-
     }
 
+    //Accept an array of ids?
     replaceColor(id) {
         let myColors = this.state.colors.slice();
         myColors[id] = this.state.color;
