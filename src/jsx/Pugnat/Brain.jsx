@@ -23,6 +23,7 @@ class Brain extends React.Component {
         this.offsetTop = 0;
         this.boxHeight = 0;
         this.boxWidth = 0;
+        this.element = null;
     }
 
     componentDidMount() {
@@ -32,6 +33,12 @@ class Brain extends React.Component {
 
         this.queryDom();
 
+        this.element.addEventListener('touchmove', this.boundHandleTouchMove, false);
+
+    }
+
+    componentWillUnmount() {
+       this.element.removeEventListener('touchmove', this.boundHandleTouchMove, false); 
     }
 
     initColors() {
@@ -64,6 +71,7 @@ class Brain extends React.Component {
 
     queryDom() {
         let myElement = document.querySelector('[data-pugnat]');
+        this.element = myElement;
         this.height = myElement.clientHeight;
         this.width = myElement.clientWidth;
         this.offsetTop = myElement.offsetTop;
@@ -146,7 +154,7 @@ class Brain extends React.Component {
         let swatchStyle = {backgroundColor: this.state.color};
         return (
             <div style={myStyle}>
-                <div className={classes} onTouchMove={this.boundHandleTouchMove} data-pugnat>
+                <div className={classes} data-pugnat>
                     {boxes}
                 </div>
                 <div className='swatch' style={swatchStyle} />
