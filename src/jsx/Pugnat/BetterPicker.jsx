@@ -2,25 +2,58 @@
 
 import React from 'react';
 
-let Color = require('./Color.jsx');
+let ColorControl = require('./ColorControl.jsx');
 
 class ColorPicker extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            r: this.props.r,
+            g: this.props.g,
+            b: this.props.b
+        }
+
+        this.boundSetR = this.setR.bind(this);
+        this.boundSetG = this.setG.bind(this);
+        this.boundSetB = this.setB.bind(this);
+
+    }
+
+
+    setR(value) {
+        this.setState({r: value});
+        this.props.onColorChange(this._getColor());
+    }
+
+    setG(value) {
+        this.setState({g: value});
+        this.props.onColorChange(this._getColor());
+    }
+
+    setB(value) {
+        this.setState({b: value});
+        this.props.onColorChange(this._getColor());
+    }
+
+    _getColor() {
+        return 'rgb(' + this.state.r + ',' + this.state.g + ',' + this.state.b + ')';
     }
 
     render() {
-        let myClasses = 'colorpicker';
+        let myClasses = 'better-picker';
         let myStyles = {
         }
 
+        let myColor = this._getColor();
+
         return (
             <div className={myClasses} style={myStyles} >
-                <Color color="#fff" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
-                <Color color="#000" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
-                <Color color="#ff0000" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
-                <Color color="#0000ff" handleColor={this.props.handleColor} boundSet={this.props.boundSet}/>
+                <div className='controls'>
+                    <ColorControl value={this.state.r} red={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetR} />
+                    <ColorControl value={this.state.g} green={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetG} />
+                    <ColorControl value={this.state.b} blue={true} r={this.state.r} g={this.state.g} b={this.state.b} update={this.boundSetB} />
+                </div>
             </div>
         );
     }

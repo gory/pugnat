@@ -34,7 +34,13 @@ class Box extends React.Component {
         }
 
         return (
-            <div className={myClasses} style={myStyles} onMouseOver={this.boundHandleOver} onMouseDown={this.boundHandleDown} onMouseUp={this.boundHandleUp}>
+            <div
+                className={myClasses}
+                style={myStyles}
+                onMouseOver={this.boundHandleOver}
+                onMouseDown={this.boundHandleDown}
+                onMouseUp={this.boundHandleUp}
+            >
                 <a href="">
                     <div></div>
                 </a>
