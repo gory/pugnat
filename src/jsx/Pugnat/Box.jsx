@@ -9,7 +9,6 @@ class Box extends React.Component {
         this.boundHandleOver = this.handleOver.bind(this);
         this.boundHandleDown = this.handleDown.bind(this);
         this.boundHandleUp = this.handleUp.bind(this);
-        this.boundHandleTouchMove = this.handleTouchMove.bind(this);
     }
 
     handleOver(e) {
@@ -27,11 +26,6 @@ class Box extends React.Component {
         this.props.handleMouseUp(this.props.id);
     }
 
-    handleTouchMove(e) {
-        console.log('box ' + this.props.id);
-        this.props.handleTouchMove(this.props.id);
-    }
-
     render() {
         let myClasses = 'box';
         let myColor = this.props.color || "#000";
@@ -46,7 +40,6 @@ class Box extends React.Component {
                 onMouseOver={this.boundHandleOver}
                 onMouseDown={this.boundHandleDown}
                 onMouseUp={this.boundHandleUp}
-                onTouchStart={this.boundHandleTouchMove}
             >
                 <a href="">
                     <div></div>

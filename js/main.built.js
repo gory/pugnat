@@ -18184,7 +18184,6 @@ var Box = function (_React$Component) {
         _this.boundHandleOver = _this.handleOver.bind(_this);
         _this.boundHandleDown = _this.handleDown.bind(_this);
         _this.boundHandleUp = _this.handleUp.bind(_this);
-        _this.boundHandleTouchMove = _this.handleTouchMove.bind(_this);
         return _this;
     }
 
@@ -18207,12 +18206,6 @@ var Box = function (_React$Component) {
             this.props.handleMouseUp(this.props.id);
         }
     }, {
-        key: 'handleTouchMove',
-        value: function handleTouchMove(e) {
-            console.log('box ' + this.props.id);
-            this.props.handleTouchMove(this.props.id);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var myClasses = 'box';
@@ -18228,8 +18221,7 @@ var Box = function (_React$Component) {
                     style: myStyles,
                     onMouseOver: this.boundHandleOver,
                     onMouseDown: this.boundHandleDown,
-                    onMouseUp: this.boundHandleUp,
-                    onTouchStart: this.boundHandleTouchMove
+                    onMouseUp: this.boundHandleUp
                 },
                 _react2.default.createElement(
                     'a',
@@ -18273,13 +18265,21 @@ var Brain = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Brain.__proto__ || Object.getPrototypeOf(Brain)).call(this, props));
 
-        _this.boxes = 25 * 25;
+        _this.dimension = 25;
+        _this.boxes = _this.dimension * _this.dimension;
         _this.state = { colors: [], r: 0, g: 0, b: 0, color: 'rgb(0,0,0)', mouseDown: false };
         _this.boundHandleColor = _this.handleColor.bind(_this);
         _this.boundHandleMouseDown = _this.handleMouseDown.bind(_this);
         _this.boundHandleMouseUp = _this.handleMouseUp.bind(_this);
         _this.boundHandleMouseOver = _this.handleMouseOver.bind(_this);
         _this.boundHandleTouchMove = _this.handleTouchMove.bind(_this);
+        // this.matrix = [];
+
+        _this.height = 0;
+        _this.width = 0;
+        _this.offsetTop = 0;
+        _this.boxHeight = 0;
+        _this.boxWidth = 0;
         return _this;
     }
 
@@ -18289,6 +18289,10 @@ var Brain = function (_React$Component) {
             var myColors = this.initColors();
 
             this.setState({ colors: myColors });
+
+            this.queryDom();
+
+            // this.setupMatrix();
         }
     }, {
         key: 'initColors',
@@ -18308,17 +18312,38 @@ var Brain = function (_React$Component) {
 
             for (var x = 0; x < this.boxes; x++) {
                 var myColor = colors[x];
-                myBoxes.push(_react2.default.createElement(Box, {
+                var myBox = _react2.default.createElement(Box, {
                     key: x.toString(),
                     id: x.toString(),
                     color: colors[x],
                     handleMouseOver: this.boundHandleMouseOver,
                     handleMouseDown: this.boundHandleMouseDown,
-                    handleMouseUp: this.boundHandleMouseUp,
-                    handleTouchMove: this.boundHandleTouchMove }));
+                    handleMouseUp: this.boundHandleMouseUp });
+                myBoxes.push(myBox);
             }
 
             return myBoxes;
+        }
+
+        // setupMatrix() {
+        //     let myMatrix = [];
+        //     let row = 0;
+        //     let col = 0;
+
+        //     for (let x = 0; x < this.boxes; x++) {
+
+        //     }
+        // }
+
+    }, {
+        key: 'queryDom',
+        value: function queryDom() {
+            var myElement = document.querySelector('[data-pugnat]');
+            this.height = myElement.clientHeight;
+            this.width = myElement.clientWidth;
+            this.offsetTop = myElement.offsetTop;
+            this.boxHeight = this.height / this.dimension;
+            this.boxWidth = this.width / this.dimension;
         }
     }, {
         key: 'handleMouseDown',
@@ -18332,18 +18357,58 @@ var Brain = function (_React$Component) {
             this.setState({ mouseDown: false });
         }
     }, {
-        key: 'handleTouchMove',
-        value: function handleTouchMove(id) {
-            var myColors = this.replaceColor(id);
-            this.setState({ colors: myColors });
-        }
-    }, {
         key: 'handleMouseOver',
         value: function handleMouseOver(id) {
             if (this.state.mouseDown) {
                 var myColors = this.replaceColor(id);
                 this.setState({ colors: myColors });
             }
+        }
+    }, {
+        key: 'handleTouchMove',
+        value: function handleTouchMove(e) {
+            var touches = e.touches;
+            var lt = touches.length;
+            for (var i = 0; i < lt; i++) {
+                var touch = touches[i];
+                var x = touch.clientX;
+                var y = touch.clientY;
+                this.touchToId(x, y);
+            }
+        }
+
+        //(x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+    }, {
+        key: 'map',
+        value: function map(value) {
+            var mappedValue = value * (this.dimension - 1) / this.height;
+            var ceiling = Math.ceil(mappedValue);
+            return this.clamp(ceiling);
+        }
+    }, {
+        key: 'clamp',
+        value: function clamp(value) {
+            if (value < 1) {
+                return 1;
+            }
+
+            if (value > this.dimension) {
+                return this.dimension;
+            }
+
+            return value;
+        }
+    }, {
+        key: 'touchToId',
+        value: function touchToId(x, oldY) {
+            console.log('x :: ' + x + '    y :: ' + oldY);
+            var y = oldY - this.offsetTop;
+
+            var row = this.map(y);
+            var col = this.map(x);
+
+            console.log('row :: ' + row + '    col :: ' + col);
         }
     }, {
         key: 'replaceColor',
@@ -18369,7 +18434,7 @@ var Brain = function (_React$Component) {
                 { style: myStyle },
                 _react2.default.createElement(
                     'div',
-                    { className: classes },
+                    { className: classes, onTouchMove: this.boundHandleTouchMove, 'data-pugnat': true },
                     boxes
                 ),
                 _react2.default.createElement('div', { className: 'swatch', style: swatchStyle }),
