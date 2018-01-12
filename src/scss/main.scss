@@ -1,5 +1,6 @@
 @import "reset";
 @import "settings";
+@import "mixins";
 
 html, body, main, .root {
 	width: 100%;
@@ -11,14 +12,8 @@ html {
 	overflow: hidden;
 }
 
-body {
-	position: fixed;
-}
-
 .root {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+
 }
 
 @import "Pugnat/brain";

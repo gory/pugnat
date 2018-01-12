@@ -1,29 +1,65 @@
-$box-size:  4%;
-$height:    25;
-$width:     25;
 
-.brain {
+.brain-wrapper {
     width: 100%;
-    max-width: 414px;
+    max-width: $max-width;
     display: flex;
-    flex-flow: row wrap;
-    align-content: flex-end;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
-    .box {
-        height: $box-size;
-        width: $box-size;
-        padding-bottom: $box-size;
+    @include landscape{
+        flex-direction: row;
+        height: 100%;
     }
 
-}
+    .brain {
+        width: 100%;
+        max-width: $max-width;
+        display: flex;
+        flex-flow: row wrap;
+        align-content: flex-end;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 0;
+        touch-action: manipulation;
 
-.swatch {
-    width: 100%;
-    padding-bottom: $box-size;
-    margin: 4px 0;
-}
+        @include landscape {
+            height: 414px;
 
+            width: 414px;
+        }
+
+        @include landscape-iphone-se {
+            width: 320px;
+        }
+
+        @include landscape-iphone {
+            width: 375px;
+        }
+
+        @include landscape-iphone-plus {
+            width: 414px;
+        }
+
+        .box {
+            height: $box-size;
+            width: $box-size;
+            padding-bottom: $box-size;
+
+            @include landscape {
+                padding-bottom: 0;
+            }
+        }
+
+    }
+
+    .tools {
+        flex-grow: 1;
+    }
+
+    .swatch {
+        width: 20px;
+        height: 20px;
+        margin: 4px;
+    }
+}
 
 @import "betterPicker";

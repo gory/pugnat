@@ -34,14 +34,12 @@ class Brain extends React.Component {
 
         this.queryDom();
 
-        this.element.addEventListener('touchmove', this.boundHandleTouchMove, false);
-        this.element.addEventListener('touchstart', this.boundHandleTouchStart, false);
+        window.addEventListener('resize', this.queryDom.bind(this));
 
     }
 
     componentWillUnmount() {
-       this.element.removeEventListener('touchmove', this.boundHandleTouchMove, false);
-       this.element.removeEventListener('touchstart', this.boundHandleTouchStart, false);
+        window.removeEventListener('resize', this.queryDom.bind(this));
     }
 
     initColors() {
@@ -99,6 +97,7 @@ class Brain extends React.Component {
     }
 
     handleTouchMove(e) {
+        e.preventDefault();
         let touches = e.touches;
         let lt = touches.length;
         for (let i = 0; i < lt; i++) {
@@ -111,6 +110,7 @@ class Brain extends React.Component {
     }
 
     handleTouchStart(e) {
+        e.preventDefault();
         let touches = e.touches;
         let lt = touches.length;
         for (let i = 0; i < lt; i++) {
@@ -146,7 +146,7 @@ class Brain extends React.Component {
         let row = this.map(y);
         let col = this.map(x);
 
-        let id = ((row - 1) * 25) + (col-1);
+        let id = ((row -1 ) * this.dimension) + (col-1);
 
         return id;
     }
@@ -163,20 +163,22 @@ class Brain extends React.Component {
     }
 
     render() {
-        let classes = 'brain';
         let boxes = this.makeBoxes(this.state.colors);
-        let myStyle = {width: '100%', maxWidth: '414px'};
         let swatchStyle = {backgroundColor: this.state.color};
+
         return (
-            <div style={myStyle}>
-                <div className={classes} data-pugnat>
+            <div className='brain-wrapper'>
+                <div className='brain' data-pugnat onTouchStart={this.boundHandleTouchStart} onTouchMove={this.boundHandleTouchMove}>
                     {boxes}
                 </div>
-                <div className='swatch' style={swatchStyle} />
-                <BetterPicker r={this.state.r} g={this.state.g} b={this.state.b} onColorChange={this.boundHandleColor}/>
+                <div className='tools'>
+                    <div className='swatch' style={swatchStyle} />
+                    <BetterPicker r={this.state.r} g={this.state.g} b={this.state.b} onColorChange={this.boundHandleColor}/>
+                </div>
             </div>
 
         );
+
     }
 
 }

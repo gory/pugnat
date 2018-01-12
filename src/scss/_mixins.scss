@@ -1,0 +1,48 @@
+@mixin landscape {
+	@media only screen and (orientation: landscape) {
+		@content
+	}
+}
+
+@mixin portrait {
+	@media only screen and (orientation: portrait) {
+		@content
+	}
+}
+
+@mixin landscape-iphone-se {
+	@media only screen and (orientation: landscape) and (max-height: 321px) {
+		@content;
+	}
+}
+
+@mixin landscape-iphone {
+	@media only screen and (orientation: landscape) and (max-height: 376px) {
+		@content;
+	}
+}
+
+@mixin landscape-iphone-plus {
+	@media only screen and (orientation: landscape) and (max-height: 415px) {
+		@content;
+	}
+}
+
+@mixin portrait-iphone-se {
+	@media only screen and (orientation: portrait) and (max-height: 569px) {
+		@content;
+	}
+}
+
+@mixin portrait-iphone {
+	@media only screen and (orientation: portrait) and (max-height: 668px) {
+		@content;
+	}
+}
+
+@mixin portrait-iphone-plus {
+	@media only screen and (orientation: portrait) and (max-height: 737px) {
+		@content;
+	}
+}
+
